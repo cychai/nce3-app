@@ -616,7 +616,7 @@ svg {
   .site-foot { flex-direction: column; gap: 6px; }
   .study-toolbar { gap: 12px; }
   .subtitle-tabs { grid-template-columns: repeat(3, 38px); }
-  .lyric-list { padding-top: 16vh; }
+  .lyric-list { padding-top: 12px; }
   .lyric-line { grid-template-columns: 28px minmax(0, 1fr); gap: 8px; padding: 12px 8px; }
   .line-en { font-size: 1rem; }
   .line-zh { font-size: 0.82rem; }

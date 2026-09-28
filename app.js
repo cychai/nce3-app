@@ -19,6 +19,7 @@ const state = {
   unitIndex: -1,
   lines: [],
   activeLine: -1,
+  loopLine: -1,
   mode: localStorage.getItem(STORAGE.mode) || 'sequence',
   rate: Number(localStorage.getItem(STORAGE.rate)) || 1,
   follow: localStorage.getItem(STORAGE.follow) !== '0',
@@ -164,9 +165,9 @@ async function loadLyrics(unit) {
   return lines;
 }
 
-async function openUnit(index, seekTo = 0) {
+async function openUnit(index, seekTo = 0, shouldPlay = false) {
   const token = ++state.loadToken;
-  state.playRequested = false;
+  state.playRequested = shouldPlay;
   audio.pause();
   state.unitIndex = index;
   state.unit = state.book.units[index];
@@ -188,13 +189,17 @@ async function openUnit(index, seekTo = 0) {
   $('#timeDur').textContent = '0:00';
   switchView('player');
   if (location.hash !== '#play') history.pushState({ view: 'player' }, '', '#play');
+  setAudioSource(state.unit, seekTo);
+  if (shouldPlay) requestPlayback();
 
   try {
     const lines = await loadLyrics(state.unit);
     if (token !== state.loadToken) return;
     state.lines = lines;
+    state.loopLine = state.mode === 'sentence'
+      ? Math.max(0, sentenceAt(audio.currentTime || seekTo))
+      : -1;
     renderLyrics();
-    setAudioSource(state.unit, seekTo);
   } catch (error) {
     if (token !== state.loadToken) return;
     $('#lyricStatus').textContent = `字幕加载失败：${error.message}`;
@@ -219,6 +224,7 @@ function renderLyrics() {
       </span>`;
     button.addEventListener('click', () => {
       audio.currentTime = line.t + 0.01;
+      if (state.mode === 'sentence') state.loopLine = index;
       requestPlayback();
     });
     item.appendChild(button);
@@ -232,12 +238,10 @@ function renderLyrics() {
   $('#lyricStatus').hidden = true;
   $('#activeIdx').textContent = `0 / ${state.lines.length}`;
   $('#lyricScroll').scrollTop = 0;
-  $('#resourceState').textContent = 'JSDELIVR · READY';
 }
 
 function setAudioSource(unit, seekTo) {
   audio.dataset.source = 'primary';
-  state.playRequested = false;
   audio.src = resourceUrl(state.book.resources.audio, `${unit.file}.mp3`);
   audio.playbackRate = state.rate;
   audio.load();
@@ -334,6 +338,7 @@ function jumpSentence(direction) {
   } else {
     target = Math.min(state.lines.length - 1, Math.max(0, current + 1));
   }
+  if (state.mode === 'sentence') state.loopLine = target;
   audio.currentTime = state.lines[target].t + 0.01;
   requestPlayback();
 }
@@ -398,8 +403,12 @@ function bindEvents() {
   });
   $('#btnPrevSentence').addEventListener('click', () => jumpSentence(-1));
   $('#btnNextSentence').addEventListener('click', () => jumpSentence(1));
-  $('#btnPrevLesson').addEventListener('click', () => openUnit(state.unitIndex - 1));
-  $('#btnNextLesson').addEventListener('click', () => openUnit(state.unitIndex + 1));
+  $('#btnPrevLesson').addEventListener('click', () => {
+    openUnit(state.unitIndex - 1, 0, state.playRequested || !audio.paused);
+  });
+  $('#btnNextLesson').addEventListener('click', () => {
+    openUnit(state.unitIndex + 1, 0, state.playRequested || !audio.paused);
+  });
 
   $('#btnDone').addEventListener('click', () => {
     const number = state.unit.num;
@@ -418,6 +427,9 @@ function bindEvents() {
   $('#btnMode').addEventListener('click', () => {
     const index = MODES.findIndex((mode) => mode.key === state.mode);
     state.mode = MODES[(index + 1) % MODES.length].key;
+    state.loopLine = state.mode === 'sentence'
+      ? Math.max(0, sentenceAt(audio.currentTime))
+      : -1;
     localStorage.setItem(STORAGE.mode, state.mode);
     applyPreferences();
     toast(MODES.find((mode) => mode.key === state.mode).label);
@@ -440,6 +452,9 @@ function bindEvents() {
     const rect = progress.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
     audio.currentTime = ratio * audio.duration;
+    if (state.mode === 'sentence') {
+      state.loopLine = Math.max(0, sentenceAt(audio.currentTime));
+    }
     updateProgress();
   };
   progress.addEventListener('pointerdown', (event) => {
@@ -466,8 +481,15 @@ function bindEvents() {
   audio.addEventListener('timeupdate', () => {
     if (!state.unit || state.seeking) return;
     const active = sentenceAt(audio.currentTime);
-    if (state.mode === 'sentence' && active >= 0 && audio.currentTime >= sentenceEnd(active) - 0.04) {
-      audio.currentTime = state.lines[active].t + 0.01;
+    if (
+      state.mode === 'sentence'
+      && state.loopLine >= 0
+      && audio.currentTime >= sentenceEnd(state.loopLine) - 0.04
+    ) {
+      audio.currentTime = state.lines[state.loopLine].t + 0.01;
+      updateActive(state.loopLine);
+      updateProgress();
+      return;
     }
     updateActive(active);
     updateProgress();
@@ -481,11 +503,11 @@ function bindEvents() {
     if (state.mode === 'lesson') {
       audio.currentTime = 0;
       requestPlayback();
-    } else if (state.mode === 'sentence' && state.activeLine >= 0) {
-      audio.currentTime = state.lines[state.activeLine].t + 0.01;
+    } else if (state.mode === 'sentence' && state.loopLine >= 0) {
+      audio.currentTime = state.lines[state.loopLine].t + 0.01;
       requestPlayback();
     } else if (state.unitIndex < state.book.units.length - 1) {
-      openUnit(state.unitIndex + 1);
+      openUnit(state.unitIndex + 1, 0, true);
     } else {
       toast('第三册已全部播放完成');
     }
