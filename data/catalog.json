@@ -1,0 +1,440 @@
+{
+  "version": 2,
+  "key": "NCE3-US",
+  "name": "新概念英语第三册",
+  "accent": "美音",
+  "generatedAt": "2026-09-28",
+  "lineCount": 1724,
+  "resources": {
+    "lyrics": "https://cdn.jsdelivr.net/gh/magang0425/NCE@master/NCE3",
+    "audio": "https://cdn.jsdelivr.net/gh/tangx/New-Concept-English@main/%E6%96%B0%E6%A6%82%E5%BF%B5%E8%8B%B1%E8%AF%AD%E7%AC%AC3%E5%86%8C%E7%BE%8E%E9%9F%B3%EF%BC%88MP3%2BLRC%EF%BC%89/NCE3-%E7%BE%8E%E9%9F%B3-%28MP3%2BLRC%29",
+    "audioFallback": "https://nce.mleo.site/NCE3"
+  },
+  "attribution": {
+    "lyrics": "magang0425/NCE",
+    "audio": "tangx/New-Concept-English",
+    "delivery": "jsDelivr"
+  },
+  "units": [
+    {
+      "num": 1,
+      "title": "A Puma at Large",
+      "file": "01－A Puma at Large",
+      "lineCount": 24,
+      "audioFallbackFile": "01.A Puma at Large"
+    },
+    {
+      "num": 2,
+      "title": "Thirteen Equals One",
+      "file": "02－Thirteen Equals One",
+      "lineCount": 23,
+      "audioFallbackFile": "02.Thirteen Equals One"
+    },
+    {
+      "num": 3,
+      "title": "An Unknown Goddess",
+      "file": "03－An Unknown Goddess",
+      "lineCount": 20,
+      "audioFallbackFile": "03.An Unknown Goddess"
+    },
+    {
+      "num": 4,
+      "title": "The Double Life of Alfred Bloggs",
+      "file": "04－The Double Life of Alfred Bloggs",
+      "lineCount": 17,
+      "audioFallbackFile": "04.The Double Life of Alfred Bloggs"
+    },
+    {
+      "num": 5,
+      "title": "The Facts",
+      "file": "05－The Facts",
+      "lineCount": 17,
+      "audioFallbackFile": "05.The Facts"
+    },
+    {
+      "num": 6,
+      "title": "Smash-and-Grab",
+      "file": "06－Smash-and-Grab",
+      "lineCount": 22,
+      "audioFallbackFile": "06.Smash and Grab"
+    },
+    {
+      "num": 7,
+      "title": "Mutilated Ladies",
+      "file": "07－Mutilated Ladies",
+      "lineCount": 20,
+      "audioFallbackFile": "07.Mutilated Ladies"
+    },
+    {
+      "num": 8,
+      "title": "A Famous Monastery",
+      "file": "08－A Famous Monastery",
+      "lineCount": 27,
+      "audioFallbackFile": "08.A Famous Monastery"
+    },
+    {
+      "num": 9,
+      "title": "Flying Cats",
+      "file": "09－Flying Cats",
+      "lineCount": 23,
+      "audioFallbackFile": "09.Flying Cats"
+    },
+    {
+      "num": 10,
+      "title": "The Loss of the Titanic",
+      "file": "10－The Loss of the Titanic",
+      "lineCount": 20,
+      "audioFallbackFile": "10.The Loss of the Titanic"
+    },
+    {
+      "num": 11,
+      "title": "Not Guilty",
+      "file": "11－Not Guilty",
+      "lineCount": 30,
+      "audioFallbackFile": "11.Not Guilty"
+    },
+    {
+      "num": 12,
+      "title": "Life on a Desert Island",
+      "file": "12－Life on a Desert Island",
+      "lineCount": 20,
+      "audioFallbackFile": "12.Life on a Desert Island"
+    },
+    {
+      "num": 13,
+      "title": "It's Only Me",
+      "file": "13－It's Only Me",
+      "lineCount": 20,
+      "audioFallbackFile": "13.It's Only Me"
+    },
+    {
+      "num": 14,
+      "title": "A Noble Gangster",
+      "file": "14－A Noble Gangster",
+      "lineCount": 14,
+      "audioFallbackFile": "14.A Noble Gangster"
+    },
+    {
+      "num": 15,
+      "title": "Fifty Pence Worth of Trouble",
+      "file": "15－Fifty Pence Worth of Trouble",
+      "lineCount": 20,
+      "audioFallbackFile": "15.Fifty Pence Worth of Trouble"
+    },
+    {
+      "num": 16,
+      "title": "Mary Had a Little Lamb",
+      "file": "16－Mary Had a Little Lamb",
+      "lineCount": 21,
+      "audioFallbackFile": "16.Mary Had a Little Lamb"
+    },
+    {
+      "num": 17,
+      "title": "The Longest Suspension Bridge in the World",
+      "file": "17－The Longest Suspension Bridge in the World",
+      "lineCount": 21,
+      "audioFallbackFile": "17.The Longest Suspension Bridge in the World"
+    },
+    {
+      "num": 18,
+      "title": "Electric Currents in Modern Art",
+      "file": "18－Electric Currents in Modern Art",
+      "lineCount": 22,
+      "audioFallbackFile": "18.Electric Currents in Modern Art"
+    },
+    {
+      "num": 19,
+      "title": "A Very Dear Cat",
+      "file": "19－A Very Dear Cat",
+      "lineCount": 22,
+      "audioFallbackFile": "19.A Very Dear Cat"
+    },
+    {
+      "num": 20,
+      "title": "Pioneer Pilots",
+      "file": "20－Pioneer Pilots",
+      "lineCount": 22,
+      "audioFallbackFile": "20.Pioneer Pilots"
+    },
+    {
+      "num": 21,
+      "title": "Daniel Mendoza",
+      "file": "21－Daniel Mendoza",
+      "lineCount": 28,
+      "audioFallbackFile": "21.Daniel Mendoza"
+    },
+    {
+      "num": 22,
+      "title": "By Heart",
+      "file": "22－By Heart",
+      "lineCount": 26,
+      "audioFallbackFile": "22.By Heart"
+    },
+    {
+      "num": 23,
+      "title": "One Man's Meat is Another Man's Poison",
+      "file": "23－One Man's Meat is Another Man's Poison",
+      "lineCount": 26,
+      "audioFallbackFile": "23.One Man's Meat is Another Man's Poison"
+    },
+    {
+      "num": 24,
+      "title": "A Skeleton in the Cupboard",
+      "file": "24－A Skeleton in the Cupboard",
+      "lineCount": 28,
+      "audioFallbackFile": "24.A Skeleton in the Cupboard"
+    },
+    {
+      "num": 25,
+      "title": "The Cutty Sark",
+      "file": "25－The Cutty Sark",
+      "lineCount": 29,
+      "audioFallbackFile": "25.The Cutty Sark"
+    },
+    {
+      "num": 26,
+      "title": "Wanted a Large Biscuit Tin",
+      "file": "26－Wanted a Large Biscuit Tin",
+      "lineCount": 29,
+      "audioFallbackFile": "26.Wanted a Large Biscuit Tin"
+    },
+    {
+      "num": 27,
+      "title": "Nothing to Sell and Nothing to Buy",
+      "file": "27－Nothing to Sell and Nothing to Buy",
+      "lineCount": 27,
+      "audioFallbackFile": "27.Nothing to Sell and Nothing to Buy"
+    },
+    {
+      "num": 28,
+      "title": "Five Pounds Too Dear",
+      "file": "28－Five Pounds Too Dear",
+      "lineCount": 30,
+      "audioFallbackFile": "28.Five Pounds Too Dear"
+    },
+    {
+      "num": 29,
+      "title": "Funny or Not",
+      "file": "29－Funny or Not",
+      "lineCount": 30,
+      "audioFallbackFile": "29.Funny or Not"
+    },
+    {
+      "num": 30,
+      "title": "The Death of a Ghost",
+      "file": "30－The Death of a Ghost",
+      "lineCount": 31,
+      "audioFallbackFile": "30.The Death of a Ghost"
+    },
+    {
+      "num": 31,
+      "title": "A Lovable Eccentric",
+      "file": "31－A Lovable Eccentric",
+      "lineCount": 29,
+      "audioFallbackFile": "31.A Lovable Eccentric"
+    },
+    {
+      "num": 32,
+      "title": "A Lost Ship",
+      "file": "32－A Lost Ship",
+      "lineCount": 27,
+      "audioFallbackFile": "32.A Lost Ship"
+    },
+    {
+      "num": 33,
+      "title": "A Day to Remember",
+      "file": "33－A Day to Remember",
+      "lineCount": 30,
+      "audioFallbackFile": "33.A Day to Remember"
+    },
+    {
+      "num": 34,
+      "title": "A Happy Discovery",
+      "file": "34－A Happy Discovery",
+      "lineCount": 28,
+      "audioFallbackFile": "34.A Happy Discovery"
+    },
+    {
+      "num": 35,
+      "title": "Justice was Done",
+      "file": "35－Justice was Done",
+      "lineCount": 31,
+      "audioFallbackFile": "35.Justice was Done"
+    },
+    {
+      "num": 36,
+      "title": "A Chance in a Million",
+      "file": "36－A Chance in a Million",
+      "lineCount": 32,
+      "audioFallbackFile": "36.A Chance in a Million"
+    },
+    {
+      "num": 37,
+      "title": "The Westhaven Express",
+      "file": "37－The Westhaven Express",
+      "lineCount": 28,
+      "audioFallbackFile": "37.The Westhaven Express"
+    },
+    {
+      "num": 38,
+      "title": "The First Calendar",
+      "file": "38－The First Calendar",
+      "lineCount": 24,
+      "audioFallbackFile": "38.The First Calendar"
+    },
+    {
+      "num": 39,
+      "title": "Nothing to Worry About",
+      "file": "39－Nothing to Worry About",
+      "lineCount": 27,
+      "audioFallbackFile": "39.Nothing to Worry About"
+    },
+    {
+      "num": 40,
+      "title": "Who's Who",
+      "file": "40－Who's Who",
+      "lineCount": 26,
+      "audioFallbackFile": "40.Who's Who"
+    },
+    {
+      "num": 41,
+      "title": "Illusions of Pastoral Peace",
+      "file": "41－Illusions of Pastoral Peace",
+      "lineCount": 36,
+      "audioFallbackFile": "41.Illusions of Pastoral Peace"
+    },
+    {
+      "num": 42,
+      "title": "Modern Cavemen",
+      "file": "42－Modern Cavemen",
+      "lineCount": 36,
+      "audioFallbackFile": "42.Modern Cavemen"
+    },
+    {
+      "num": 43,
+      "title": "Fully Insured",
+      "file": "43－Fully Insured",
+      "lineCount": 32,
+      "audioFallbackFile": "43.Fully Insured"
+    },
+    {
+      "num": 44,
+      "title": "Speed and Comfort",
+      "file": "44－Speed and Comfort",
+      "lineCount": 38,
+      "audioFallbackFile": "44.Speed and Comfort"
+    },
+    {
+      "num": 45,
+      "title": "The Power of the Press",
+      "file": "45－The Power of the Press",
+      "lineCount": 31,
+      "audioFallbackFile": "45.The Power of the Press"
+    },
+    {
+      "num": 46,
+      "title": "Do It Yourself",
+      "file": "46－Do It Yourself",
+      "lineCount": 40,
+      "audioFallbackFile": "46.Do It Yourself"
+    },
+    {
+      "num": 47,
+      "title": "Too High a Price",
+      "file": "47－Too High a Price",
+      "lineCount": 37,
+      "audioFallbackFile": "47.Too High a Price"
+    },
+    {
+      "num": 48,
+      "title": "The Silent Village",
+      "file": "48－The Silent Village",
+      "lineCount": 39,
+      "audioFallbackFile": "48.The Silent Village"
+    },
+    {
+      "num": 49,
+      "title": "The Ideal Servant",
+      "file": "49－The Ideal Servant",
+      "lineCount": 41,
+      "audioFallbackFile": "49.The Ideal Servant"
+    },
+    {
+      "num": 50,
+      "title": "New Year Resolutions",
+      "file": "50－New Year Resolutions",
+      "lineCount": 39,
+      "audioFallbackFile": "50.New Year Resolutions"
+    },
+    {
+      "num": 51,
+      "title": "Predicting the Future",
+      "file": "51－Predicting the Future",
+      "lineCount": 37,
+      "audioFallbackFile": "51.Predicting the Future"
+    },
+    {
+      "num": 52,
+      "title": "Mud is Mud",
+      "file": "52－Mud is Mud",
+      "lineCount": 37,
+      "audioFallbackFile": "52.Mud is Mud"
+    },
+    {
+      "num": 53,
+      "title": "In the Public Interest",
+      "file": "53－In the Public Interest",
+      "lineCount": 34,
+      "audioFallbackFile": "53.In the Public Interest"
+    },
+    {
+      "num": 54,
+      "title": "Instinct or Cleverness",
+      "file": "54－Instinct or Cleverness",
+      "lineCount": 37,
+      "audioFallbackFile": "54.Instinct or Cleverness"
+    },
+    {
+      "num": 55,
+      "title": "From the Earth Greetings",
+      "file": "55－From the Earth Greetings",
+      "lineCount": 35,
+      "audioFallbackFile": "55.From the Earth Greetings"
+    },
+    {
+      "num": 56,
+      "title": "Our Neighbour, the River",
+      "file": "56－Our Neighbour, the River",
+      "lineCount": 36,
+      "audioFallbackFile": "56.Our Neighbour, the River"
+    },
+    {
+      "num": 57,
+      "title": "Back in the Old Country",
+      "file": "57－Back in the Old Country",
+      "lineCount": 40,
+      "audioFallbackFile": "57.Back in the Old Country"
+    },
+    {
+      "num": 58,
+      "title": "A Spot of Bother",
+      "file": "58－A Spot of Bother",
+      "lineCount": 33,
+      "audioFallbackFile": "58.A Spot of Bother"
+    },
+    {
+      "num": 59,
+      "title": "Collecting",
+      "file": "59－Collecting",
+      "lineCount": 35,
+      "audioFallbackFile": "59.Collecting"
+    },
+    {
+      "num": 60,
+      "title": "Too Early and Too Late",
+      "file": "60－Too Early and Too Late",
+      "lineCount": 40,
+      "audioFallbackFile": "60.Too Early and Too Late"
+    }
+  ]
+}
