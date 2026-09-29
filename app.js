@@ -11,6 +11,7 @@ const STORAGE = {
   rate: 'nce3.rate',
   follow: 'nce3.follow',
   subtitle: 'nce3.subtitle',
+  listening: 'nce3.listening',
 };
 
 const state = {
@@ -29,6 +30,10 @@ const state = {
   playRequested: false,
   loadToken: 0,
   lyricCache: new Map(),
+  listening: readStored(STORAGE.listening, {}),
+  listeningStartedAt: null,
+  calendarMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  calendarSelected: localDateKey(new Date()),
 };
 
 const RATES = [0.75, 1, 1.25, 1.5, 2];
@@ -52,6 +57,118 @@ function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return '0:00';
   const value = Math.max(0, Math.floor(seconds));
   return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`;
+}
+
+function localDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatListeningTime(milliseconds) {
+  const seconds = Math.max(0, Math.floor((Number(milliseconds) || 0) / 1000));
+  if (seconds < 60) return `${seconds} 秒`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} 分 ${seconds % 60} 秒`;
+  const hours = Math.floor(minutes / 60);
+  return `${hours} 小时 ${minutes % 60} 分`;
+}
+
+function formatCalendarDate(key) {
+  const [year, month, day] = key.split('-').map(Number);
+  return `${year}年${month}月${day}日`;
+}
+
+function recordListeningTime() {
+  if (!state.listeningStartedAt) return;
+  const end = Date.now();
+  let cursor = state.listeningStartedAt;
+  if (end <= cursor) return;
+
+  while (cursor < end) {
+    const date = new Date(cursor);
+    const nextMidnight = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() + 1,
+    ).getTime();
+    const intervalEnd = Math.min(end, nextMidnight);
+    const key = localDateKey(date);
+    state.listening[key] = (Number(state.listening[key]) || 0) + intervalEnd - cursor;
+    cursor = intervalEnd;
+  }
+
+  state.listeningStartedAt = audio.paused ? null : end;
+  localStorage.setItem(STORAGE.listening, JSON.stringify(state.listening));
+  updateCalendarSummary();
+}
+
+function updateCalendarSummary() {
+  const selected = $('#calendarSelectedDate');
+  const duration = $('#calendarSelectedTime');
+  if (!selected || !duration) return;
+  selected.textContent = formatCalendarDate(state.calendarSelected);
+  duration.textContent = formatListeningTime(state.listening[state.calendarSelected]);
+  const selectedDay = $(`.calendar-day[data-date="${state.calendarSelected}"]`);
+  if (selectedDay && state.listening[state.calendarSelected] > 0) {
+    selectedDay.classList.add('has-time');
+  }
+}
+
+function renderCalendar() {
+  const year = state.calendarMonth.getFullYear();
+  const month = state.calendarMonth.getMonth();
+  const today = localDateKey(new Date());
+  const days = new Date(year, month + 1, 0).getDate();
+  const leading = (new Date(year, month, 1).getDay() + 6) % 7;
+  const grid = $('#calendarGrid');
+  const fragment = document.createDocumentFragment();
+
+  $('#calendarMonth').textContent = `${year}年${month + 1}月`;
+  for (let index = 0; index < leading; index += 1) {
+    const spacer = document.createElement('span');
+    spacer.className = 'calendar-spacer';
+    fragment.appendChild(spacer);
+  }
+
+  for (let day = 1; day <= days; day += 1) {
+    const key = localDateKey(new Date(year, month, day));
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'calendar-day';
+    button.dataset.date = key;
+    button.textContent = String(day);
+    button.setAttribute('aria-label', `${formatCalendarDate(key)}，${formatListeningTime(state.listening[key])}`);
+    button.classList.toggle('is-today', key === today);
+    button.classList.toggle('is-selected', key === state.calendarSelected);
+    button.classList.toggle('has-time', state.listening[key] > 0);
+    button.addEventListener('click', () => {
+      state.calendarSelected = key;
+      $$('.calendar-day').forEach((dayButton) => {
+        dayButton.classList.toggle('is-selected', dayButton === button);
+      });
+      updateCalendarSummary();
+    });
+    fragment.appendChild(button);
+  }
+
+  grid.replaceChildren(fragment);
+  updateCalendarSummary();
+}
+
+function openFeature(feature) {
+  const dialog = $('#featureDialog');
+  const isCalendar = feature === 'calendar';
+  $('#dialogKicker').textContent = isCalendar ? 'LISTENING RECORD' : 'CONTACT';
+  $('#dialogTitle').textContent = isCalendar ? '学习日历' : '意见反馈';
+  $('#calendarPanel').hidden = !isCalendar;
+  $('#feedbackPanel').hidden = isCalendar;
+  if (isCalendar) {
+    recordListeningTime();
+    renderCalendar();
+  }
+  if (!dialog.open) dialog.showModal();
 }
 
 function resourceUrl(base, filename) {
@@ -356,6 +473,32 @@ function applyPreferences() {
 }
 
 function bindEvents() {
+  $$('[data-feature]').forEach((button) => {
+    button.addEventListener('click', () => openFeature(button.dataset.feature));
+  });
+  $('#btnDialogClose').addEventListener('click', () => $('#featureDialog').close());
+  $('#featureDialog').addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) event.currentTarget.close();
+  });
+  $('#btnMonthPrev').addEventListener('click', () => {
+    state.calendarMonth = new Date(
+      state.calendarMonth.getFullYear(),
+      state.calendarMonth.getMonth() - 1,
+      1,
+    );
+    state.calendarSelected = localDateKey(state.calendarMonth);
+    renderCalendar();
+  });
+  $('#btnMonthNext').addEventListener('click', () => {
+    state.calendarMonth = new Date(
+      state.calendarMonth.getFullYear(),
+      state.calendarMonth.getMonth() + 1,
+      1,
+    );
+    state.calendarSelected = localDateKey(state.calendarMonth);
+    renderCalendar();
+  });
+
   $('#searchInput').addEventListener('input', renderHome);
   $('#searchInput').addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -471,10 +614,12 @@ function bindEvents() {
   });
 
   audio.addEventListener('play', () => {
+    if (!state.listeningStartedAt) state.listeningStartedAt = Date.now();
     $('#btnPlay').classList.add('is-playing');
     $('#btnPlay').setAttribute('aria-label', '暂停');
   });
   audio.addEventListener('pause', () => {
+    recordListeningTime();
     $('#btnPlay').classList.remove('is-playing');
     $('#btnPlay').setAttribute('aria-label', '播放');
   });
@@ -500,6 +645,7 @@ function bindEvents() {
     }
   });
   audio.addEventListener('ended', () => {
+    recordListeningTime();
     if (state.mode === 'lesson') {
       audio.currentTime = 0;
       requestPlayback();
@@ -524,6 +670,11 @@ function bindEvents() {
       : 'JSDELIVR · READY';
   });
 }
+
+setInterval(() => {
+  if (!audio.paused) recordListeningTime();
+}, 5000);
+window.addEventListener('pagehide', recordListeningTime);
 
 async function boot() {
   try {

@@ -19,7 +19,15 @@
             <small>LISTENING LAB</small>
           </span>
         </a>
-        <span class="source-state"><i></i> CDN READY</span>
+        <div class="head-actions">
+          <span class="source-state"><i></i> CDN READY</span>
+          <button class="utility-btn" type="button" data-feature="calendar" aria-label="学习日历" title="学习日历">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 9h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"></path></svg>
+          </button>
+          <button class="utility-btn" type="button" data-feature="feedback" aria-label="意见反馈" title="意见反馈">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 10h8M8 14h5"></path></svg>
+          </button>
+        </div>
       </header>
 
       <div class="intro">
@@ -66,9 +74,17 @@
           <span class="player-lesson" id="playerNum">LESSON 01</span>
           <h1 class="player-title" id="playerTitle">Loading</h1>
         </div>
-        <button class="icon-btn" id="btnDone" type="button" aria-label="标记已学" title="标记已学">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>
-        </button>
+        <div class="head-actions">
+          <button class="icon-btn" id="btnDone" type="button" aria-label="标记已学" title="标记已学">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>
+          </button>
+          <button class="utility-btn" type="button" data-feature="calendar" aria-label="学习日历" title="学习日历">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 9h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"></path></svg>
+          </button>
+          <button class="utility-btn" type="button" data-feature="feedback" aria-label="意见反馈" title="意见反馈">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 10h8M8 14h5"></path></svg>
+          </button>
+        </div>
       </header>
 
       <div class="study-toolbar">
@@ -127,6 +143,43 @@
       </div>
       <audio id="audio" preload="metadata"></audio>
     </section>
+
+    <dialog class="feature-dialog" id="featureDialog" aria-labelledby="dialogTitle">
+      <div class="dialog-head">
+        <div>
+          <span class="dialog-kicker" id="dialogKicker">NCE III</span>
+          <h2 id="dialogTitle">学习日历</h2>
+        </div>
+        <button class="dialog-close" id="btnDialogClose" type="button" aria-label="关闭" title="关闭">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+
+      <section class="dialog-panel calendar-panel" id="calendarPanel">
+        <div class="calendar-nav">
+          <button type="button" id="btnMonthPrev" aria-label="上个月" title="上个月">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg>
+          </button>
+          <strong id="calendarMonth"></strong>
+          <button type="button" id="btnMonthNext" aria-label="下个月" title="下个月">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="calendar-summary">
+          <span id="calendarSelectedDate"></span>
+          <strong id="calendarSelectedTime">0 分钟</strong>
+        </div>
+      </section>
+
+      <section class="dialog-panel feedback-panel" id="feedbackPanel" hidden>
+        <img src="https://cychai.github.io/assets/wechat-qr.jpg" width="240" height="240" alt="CY.CHAI 微信公众号二维码">
+        <p>扫码关注微信公众号<br><strong>发送私信反馈</strong></p>
+      </section>
+    </dialog>
 
     <div id="toast" class="toast" role="status" hidden></div>
   </main>
